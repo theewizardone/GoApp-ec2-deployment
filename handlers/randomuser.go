@@ -25,6 +25,13 @@ func GetRandomUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Validate that we have at least one result
+	if len(userData.Results) == 0 {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprint(w, "No user data returned from API")
+		return
+	}
+
 	encodeJSON(w, userData.Results[0]) // Encode and return the first user data
 }
 
@@ -41,6 +48,11 @@ func fetchRandomUser() (models.UserData, error) {
 		return models.UserData{}, err
 	}
 	defer resp.Body.Close()
+
+	// Validate HTTP status code
+	if resp.StatusCode != http.StatusOK {
+		return models.UserData{}, fmt.Errorf("API returned status code: %d", resp.StatusCode)
+	}
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
