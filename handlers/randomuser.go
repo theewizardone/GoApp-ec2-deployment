@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -12,6 +11,11 @@ import (
 )
 
 const randomUserAPIURL = "https://randomuser.me/api/"
+
+// HTTP client with timeout for making external API requests
+var httpClient = &http.Client{
+	Timeout: 10 * time.Second,
+}
 
 func GetRandomUser(w http.ResponseWriter, r *http.Request) {
 	userData, err := fetchRandomUser()
@@ -25,22 +29,14 @@ func GetRandomUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func fetchRandomUser() (models.UserData, error) {
-	// Create a context with timeout to prevent hanging requests
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
-
-	// Create HTTP request with context
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, randomUserAPIURL, nil)
+	// Create HTTP request
+	req, err := http.NewRequest(http.MethodGet, randomUserAPIURL, nil)
 	if err != nil {
 		return models.UserData{}, err
 	}
 
-	// Create HTTP client with timeout
-	client := &http.Client{
-		Timeout: 10 * time.Second,
-	}
-
-	resp, err := client.Do(req)
+	// Execute request with timeout
+	resp, err := httpClient.Do(req)
 	if err != nil {
 		return models.UserData{}, err
 	}
