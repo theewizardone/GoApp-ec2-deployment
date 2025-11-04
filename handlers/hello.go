@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/integrationninjas/go-app/models"
+	"github.com/theewizardone/GoApp-ec2-deployment/models"
 )
 
 func HelloHandler(w http.ResponseWriter, r *http.Request) {

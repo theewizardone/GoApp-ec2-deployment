@@ -3,7 +3,7 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/integrationninjas/go-app/models"
+	"github.com/theewizardone/GoApp-ec2-deployment/models"
 )
 
 func ItemsHandler(w http.ResponseWriter, r *http.Request) {

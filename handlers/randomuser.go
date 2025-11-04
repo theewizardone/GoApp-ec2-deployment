@@ -6,7 +6,7 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/integrationninjas/go-app/models"
+	"github.com/theewizardone/GoApp-ec2-deployment/models"
 )
 
 const randomUserAPIURL = "https://randomuser.me/api/"
