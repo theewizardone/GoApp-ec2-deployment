@@ -7,7 +7,7 @@ import (
 	"os"
 
 	"github.com/gofor-little/env"
-	"github.com/integrationninjas/go-app/handlers"
+	"github.com/theewizardone/GoApp-ec2-deployment/handlers"
 )
 
 func main() {

@@ -1,4 +1,4 @@
-module github.com/integrationninjas/go-app
+module github.com/theewizardone/GoApp-ec2-deployment
 
 go 1.22.2
 
