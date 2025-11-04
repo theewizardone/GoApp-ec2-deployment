@@ -27,7 +27,7 @@ func GetRandomUser(w http.ResponseWriter, r *http.Request) {
 
 	// Validate that we have at least one result
 	if len(userData.Results) == 0 {
-		w.WriteHeader(http.StatusInternalServerError)
+		w.WriteHeader(http.StatusBadGateway)
 		fmt.Fprint(w, "No user data returned from API")
 		return
 	}
