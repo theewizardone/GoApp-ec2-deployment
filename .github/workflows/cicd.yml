@@ -24,8 +24,8 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Pull docker image
-        run: docker pull theewizardorne/theewizardone-goapp:latest
+        run: docker pull theewizardone/go-app:latest
       - name: Delete old container
-        run: docker rm -f go-app-container
+        run: docker rm -f go-app-container || true
       - name: Run docker container
-        run: docker run -d -p 4040:4040 --name go-app-container theewizardorne/theewizardone-goapp:latest
+        run: docker run -d -p 4040:4040 --name go-app-container theewizardone/go-app:latest
