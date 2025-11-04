@@ -1,10 +1,12 @@
 package handlers
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
+	"time"
 
 	"github.com/integrationninjas/go-app/models"
 )
@@ -23,7 +25,22 @@ func GetRandomUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func fetchRandomUser() (models.UserData, error) {
-	resp, err := http.Get(randomUserAPIURL)
+	// Create a context with timeout to prevent hanging requests
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	// Create HTTP request with context
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, randomUserAPIURL, nil)
+	if err != nil {
+		return models.UserData{}, err
+	}
+
+	// Create HTTP client with timeout
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	resp, err := client.Do(req)
 	if err != nil {
 		return models.UserData{}, err
 	}
