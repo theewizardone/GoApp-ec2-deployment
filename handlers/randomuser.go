@@ -36,14 +36,8 @@ func GetRandomUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func fetchRandomUser() (models.UserData, error) {
-	// Create HTTP request
-	req, err := http.NewRequest(http.MethodGet, randomUserAPIURL, nil)
-	if err != nil {
-		return models.UserData{}, err
-	}
-
-	// Execute request with timeout
-	resp, err := httpClient.Do(req)
+	// Execute GET request with timeout
+	resp, err := httpClient.Get(randomUserAPIURL)
 	if err != nil {
 		return models.UserData{}, err
 	}
