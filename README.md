@@ -102,6 +102,6 @@ Handlers use an internal encoder function (encodeJSON in handlers) and there is 
 
 Models & Utilities
 models.Item — simple item schema.
-models.Message — text message wrapper.
+models.Message — text message wrapper
 models.UserData — types to unmarshal randomuser API responses.
 utils.EncodeJSON — centralized JSON encoding + error handling.
